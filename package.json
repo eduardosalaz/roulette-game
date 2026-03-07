@@ -1,0 +1,21 @@
+{
+  "name": "roulette-game",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "partykit dev",
+    "deploy": "partykit deploy"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://local_proxy@127.0.0.1:36699/git/eduardosalaz/roulette-game"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "partykit": "^0.0.115",
+    "partysocket": "^1.1.16"
+  }
+}

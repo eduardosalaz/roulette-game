@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Casino Roulette - Multiplayer</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--green:#0a6e2e;--dark-green:#064d1f;--red:#d4213d;--gold:#f0c040;--bg:#1a1a2e}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:#fff;min-height:100vh;overflow-x:hidden}
+
+/* LOBBY */
+#lobby{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:2rem}
+#lobby h1{font-size:3rem;color:var(--gold);text-shadow:0 0 20px rgba(240,192,64,.4);margin-bottom:.5rem;letter-spacing:4px}
+#lobby .subtitle{color:#aaa;margin-bottom:2rem;font-size:1.1rem}
+.lobby-box{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:2rem;width:100%;max-width:540px;margin-bottom:1rem}
+.lobby-box h2{color:var(--gold);margin-bottom:1rem;font-size:1.3rem}
+.lobby-row{display:flex;gap:.75rem;margin-bottom:1rem}
+.lobby-row input{flex:1;padding:.6rem .8rem;border-radius:8px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.08);color:#fff;font-size:1rem}
+.lobby-row input::placeholder{color:#777}
+.lbl{display:block;margin-bottom:.4rem;color:#aaa;font-size:.85rem}
+.btn{padding:.6rem 1.2rem;border:none;border-radius:8px;font-size:.95rem;font-weight:600;cursor:pointer;transition:all .2s}
+.btn-gold{background:var(--gold);color:#1a1a2e}.btn-gold:hover{background:#f5d060;transform:translateY(-1px)}
+.btn-red{background:var(--red);color:#fff}.btn-red:hover{background:#e0334d}
+.btn-green{background:var(--green);color:#fff}.btn-green:hover{background:#0b8536}
+.btn-sm{padding:.35rem .7rem;font-size:.8rem;border-radius:6px}
+.limits-row{display:flex;gap:.75rem;margin-bottom:1rem}
+.limits-row label{flex:1;display:flex;flex-direction:column;font-size:.8rem;color:#aaa}
+.limits-row input{margin-top:.3rem;padding:.5rem .6rem;border-radius:6px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.08);color:#fff;font-size:.9rem}
+.or-divider{color:#666;font-size:1.2rem;margin:1rem 0;text-align:center;letter-spacing:4px}
+
+/* WAITING ROOM */
+#waitingRoom{display:none;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:2rem}
+.room-code-box{background:rgba(240,192,64,.1);border:2px solid var(--gold);border-radius:16px;padding:1.5rem 3rem;text-align:center;margin-bottom:1.5rem}
+.room-code-box .code-label{color:#aaa;font-size:.9rem;margin-bottom:.3rem}
+.room-code-box .code{font-size:3rem;font-weight:800;color:var(--gold);letter-spacing:8px;font-family:monospace}
+.player-list{list-style:none;margin:1rem 0}
+.player-list li{display:flex;justify-content:space-between;align-items:center;padding:.5rem .7rem;background:rgba(255,255,255,.05);border-radius:8px;margin-bottom:.4rem}
+.player-list li .pleft{display:flex;align-items:center;gap:.4rem}
+.player-list li .pcolor{width:14px;height:14px;border-radius:50%;border:2px solid #fff}
+.player-list li .pname{font-weight:600}
+.player-list li .pbal{color:var(--gold);font-size:.9rem}
+.start-row{display:flex;justify-content:center;margin-top:1.5rem}
+.start-row .btn{font-size:1.15rem;padding:.8rem 3rem;border-radius:50px}
+
+/* GAME */
+#game{display:none}
+.game-header{display:flex;justify-content:space-between;align-items:center;padding:.7rem 1rem;background:rgba(0,0,0,.4);border-bottom:2px solid var(--gold);flex-wrap:wrap;gap:.4rem}
+.game-header h1{font-size:1.3rem;color:var(--gold);letter-spacing:2px}
+.game-header .header-btns{display:flex;gap:.4rem;flex-wrap:wrap}
+.game-body{display:flex;flex-direction:column;align-items:center;padding:1rem;gap:.8rem}
+
+/* WHEEL */
+.wheel-section{display:flex;align-items:center;gap:2rem;flex-wrap:wrap;justify-content:center}
+.wheel-container{position:relative;width:500px;height:500px}
+.wheel-container canvas{width:500px;height:500px;border-radius:12px}
+.result-display{text-align:center}
+.result-display .result-number{font-size:3.5rem;font-weight:800;line-height:1;transition:all .3s}
+.result-display .result-number.revealed{font-size:5.5rem;text-shadow:0 0 30px currentColor,0 0 60px currentColor;animation:resultPop .6s ease}
+.result-display .result-label{font-size:1.1rem;margin-top:.5rem;color:#ccc;transition:all .3s}
+.result-display .result-label.revealed{font-size:1.3rem;font-weight:700;color:#fff;letter-spacing:2px}
+.spin-btn{font-size:1.2rem;padding:.8rem 2.5rem;border-radius:50px;margin-top:.4rem}
+.spin-btn:disabled{opacity:.5;cursor:not-allowed}
+@keyframes resultPop{0%{transform:scale(0.3);opacity:0}50%{transform:scale(1.2)}100%{transform:scale(1);opacity:1}}
+
+/* TABLE GRID */
+.table-section{overflow-x:auto;padding:0 .5rem}
+.num-grid{display:grid;grid-template-columns:52px 6px repeat(12,54px 6px) 54px;grid-template-rows:50px 6px 50px 6px 50px 6px 22px;position:relative;margin:0 auto;width:fit-content}
+.num-cell{display:flex;align-items:center;justify-content:center;font-weight:700;font-size:1.05rem;cursor:pointer;user-select:none;transition:all .15s;position:relative;border:2px solid rgba(255,255,255,.25);border-radius:3px}
+.num-cell:hover{filter:brightness(1.4);box-shadow:inset 0 0 12px rgba(255,255,255,.2)}
+.num-cell.cred{background:var(--red)}.num-cell.cblack{background:#222}.num-cell.cgreen{background:var(--green)}
+.gap-cell{cursor:pointer;border-radius:3px;position:relative;display:flex;align-items:center;justify-content:center}
+.gap-cell:hover{background:rgba(255,255,255,.3)}
+.gap-cell .gap-dot{width:14px;height:14px;border-radius:50%;background:rgba(255,255,255,.12);transition:all .15s}
+.gap-cell:hover .gap-dot{background:rgba(255,255,255,.55);transform:scale(1.3)}
+.col-bet,.street-cell{display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.75rem;cursor:pointer;background:var(--dark-green);color:#ddd;border:2px solid rgba(255,255,255,.25);border-radius:3px;transition:all .15s;position:relative;user-select:none}
+.col-bet:hover,.street-cell:hover{filter:brightness(1.4);box-shadow:inset 0 0 8px rgba(255,255,255,.15)}
+.outside-row{display:flex;margin:2px auto 0;width:fit-content;gap:2px}
+.obcell{display:flex;align-items:center;justify-content:center;height:40px;font-weight:700;font-size:.82rem;cursor:pointer;background:var(--dark-green);color:#ddd;border:2px solid rgba(255,255,255,.25);transition:all .15s;user-select:none;position:relative;border-radius:3px}
+.obcell:hover{filter:brightness(1.4);box-shadow:inset 0 0 10px rgba(255,255,255,.15)}
+
+/* CHIP STACKS */
+.chip-stack{position:absolute;bottom:1px;right:1px;display:flex;flex-direction:column-reverse;gap:1px;align-items:center;pointer-events:none;z-index:2}
+.table-chip{width:18px;height:18px;border-radius:50%;font-size:.5rem;font-weight:800;color:#fff;display:flex;align-items:center;justify-content:center;border:2px solid rgba(255,255,255,.7);text-shadow:0 0 2px rgba(0,0,0,.8);box-shadow:0 1px 3px rgba(0,0,0,.4)}
+
+/* PLAYERS */
+.players-section{width:100%;max-width:920px}
+.players-section h3{color:var(--gold);margin-bottom:.4rem;font-size:1rem}
+.players-grid{display:flex;flex-wrap:wrap;gap:.6rem}
+.player-card{background:rgba(255,255,255,.06);border:2px solid rgba(255,255,255,.1);border-radius:12px;padding:.7rem .9rem;min-width:170px;flex:1;max-width:260px;transition:all .2s;position:relative}
+.player-card.active{box-shadow:0 0 12px rgba(240,192,64,.2)}
+.player-card .pc-header{display:flex;align-items:center;gap:.4rem;margin-bottom:.2rem}
+.player-card .pc-dot{width:12px;height:12px;border-radius:50%;border:2px solid #fff;flex-shrink:0}
+.player-card .pc-name{font-weight:700;font-size:1rem}
+.player-card .pc-balance{color:var(--gold);font-size:1.05rem;font-weight:600}
+.player-card .pc-bet-total{color:#aaa;font-size:.82rem}
+.player-card .pc-result{font-size:.82rem;margin-top:.2rem;font-weight:600}
+.player-card .pc-result.win{color:#4f4}.player-card .pc-result.lose{color:#f66}
+
+/* BET CONTROLS */
+.bet-controls{display:flex;align-items:center;gap:.7rem;flex-wrap:wrap;justify-content:center;padding:.5rem .8rem;background:rgba(0,0,0,.3);border-radius:12px;width:100%;max-width:920px}
+.bet-controls .label{font-weight:600;color:var(--gold);font-size:.9rem}
+.chip-selector{display:flex;gap:.35rem}
+.chip{width:42px;height:42px;border-radius:50%;border:3px solid #fff;font-weight:800;font-size:.75rem;cursor:pointer;transition:all .15s;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 5px rgba(0,0,0,.4)}
+.chip:hover{transform:scale(1.1)}
+.chip.selected{box-shadow:0 0 0 3px var(--gold),0 0 12px rgba(240,192,64,.5);transform:scale(1.12)}
+.chip-1{background:#fff;color:#333}.chip-5{background:#e03030;color:#fff}.chip-10{background:#3060d0;color:#fff}
+.chip-25{background:#20a020;color:#fff}.chip-50{background:#d06020;color:#fff}.chip-100{background:#111;color:#fff}
+.action-btns{display:flex;gap:.35rem;flex-wrap:wrap}
+
+/* MODALS */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:100;align-items:center;justify-content:center}
+.modal-overlay.show{display:flex}
+.modal{background:#2a2a3e;border:1px solid rgba(255,255,255,.15);border-radius:16px;padding:1.5rem;width:92%;max-width:500px;max-height:85vh;overflow-y:auto}
+.modal h2{color:var(--gold);margin-bottom:1rem;font-size:1.2rem}
+.modal .modal-btns{display:flex;gap:.5rem;justify-content:flex-end;margin-top:.5rem}
+.stats-table{width:100%;border-collapse:collapse;font-size:.85rem;margin-top:.5rem}
+.stats-table th{text-align:left;color:var(--gold);padding:.4rem .5rem;border-bottom:1px solid rgba(255,255,255,.15)}
+.stats-table td{padding:.4rem .5rem;border-bottom:1px solid rgba(255,255,255,.06)}
+.stats-table tr:hover{background:rgba(255,255,255,.04)}
+.stats-dot{width:10px;height:10px;border-radius:50%;display:inline-block;margin-right:.3rem;vertical-align:middle}
+
+/* HISTORY */
+.history-bar{display:flex;gap:4px;flex-wrap:wrap;max-width:920px;width:100%}
+.history-num{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:700;border:2px solid rgba(255,255,255,.3)}
+.history-num.hred{background:var(--red)}.history-num.hblack{background:#222}.history-num.hgreen{background:var(--green)}
+
+/* TOAST */
+.toast{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%) translateY(80px);background:rgba(0,0,0,.88);color:#fff;padding:.7rem 1.5rem;border-radius:10px;font-weight:600;z-index:200;transition:transform .3s,opacity .3s;opacity:0;pointer-events:none;font-size:.9rem;max-width:90%;text-align:center}
+.toast.show{transform:translateX(-50%) translateY(0);opacity:1}
+
+/* BET LEGEND */
+.bet-legend{display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;font-size:.75rem;color:#999;max-width:920px}
+
+/* BET POPUP */
+.bet-popup{position:fixed;pointer-events:none;background:rgba(0,0,0,.88);color:#fff;padding:3px 10px;border-radius:6px;font-size:.78rem;font-weight:600;z-index:50;white-space:nowrap}
+@keyframes betPopUp{0%{opacity:1;transform:translateY(0)}100%{opacity:0;transform:translateY(-25px)}}
+
+/* WIN HIGHLIGHT */
+@keyframes winPulse{0%,100%{box-shadow:0 0 0 0 rgba(240,192,64,0)}50%{box-shadow:0 0 18px 4px rgba(240,192,64,.85)}}
+.win-highlight{animation:winPulse .5s ease 5;z-index:10;position:relative}
+
+/* CONFETTI */
+#confettiCanvas{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:300;display:none}
+</style>
+</head>
+<body>
+<canvas id="confettiCanvas"></canvas>
+
+<!-- LOBBY: Create or Join -->
+<div id="lobby">
+  <h1>ROULETTE</h1>
+  <p class="subtitle">Multiplayer Casino Game</p>
+
+  <div class="lobby-box">
+    <h2>Create a Room</h2>
+    <label class="lbl">Your name</label>
+    <div class="lobby-row">
+      <input type="text" id="playerName" placeholder="Your name" maxlength="20">
+    </div>
+    <label class="lbl">Starting balance</label>
+    <div class="lobby-row">
+      <input type="number" id="startMoney" value="1000" min="100" step="100">
+    </div>
+    <div class="limits-row">
+      <label>Table minimum<input type="number" id="tableMin" value="0" min="0" step="1" placeholder="0 = none"></label>
+      <label>Max per position<input type="number" id="tableMax" value="0" min="0" step="10" placeholder="0 = none"></label>
+    </div>
+    <div class="start-row">
+      <button class="btn btn-gold" onclick="createRoom()">Create Room</button>
+    </div>
+  </div>
+
+  <div class="or-divider">- OR -</div>
+
+  <div class="lobby-box">
+    <h2>Join a Room</h2>
+    <label class="lbl">Your name</label>
+    <div class="lobby-row">
+      <input type="text" id="joinName" placeholder="Your name" maxlength="20">
+    </div>
+    <label class="lbl">Room code</label>
+    <div class="lobby-row">
+      <input type="text" id="roomCode" placeholder="Enter 4-letter code" maxlength="6" style="text-transform:uppercase;letter-spacing:4px;font-weight:700;text-align:center">
+      <button class="btn btn-green" onclick="joinRoom()">Join</button>
+    </div>
+  </div>
+</div>
+
+<!-- WAITING ROOM -->
+<div id="waitingRoom">
+  <h1 style="font-size:2rem;color:var(--gold);margin-bottom:1rem;letter-spacing:4px">WAITING FOR PLAYERS</h1>
+  <div class="room-code-box">
+    <div class="code-label">Share this code with your friends:</div>
+    <div class="code" id="roomCodeDisplay">----</div>
+  </div>
+  <div class="lobby-box" style="max-width:400px">
+    <h2>Players in Room</h2>
+    <ul class="player-list" id="waitingPlayers"></ul>
+    <div class="start-row">
+      <button class="btn btn-green" id="startGameBtn" onclick="startMultiplayerGame()" style="display:none">Start Game</button>
+    </div>
+  </div>
+</div>
+
+<!-- GAME -->
+<div id="game">
+  <div class="game-header">
+    <h1>ROULETTE</h1>
+    <div class="header-btns">
+      <button class="btn btn-sm btn-gold" id="soundBtn" onclick="doToggleSound()">Sound: ON</button>
+      <button class="btn btn-sm btn-gold" onclick="openStats()">Stats</button>
+    </div>
+  </div>
+  <div class="game-body">
+    <div class="wheel-section">
+      <div class="wheel-container">
+        <div id="wheelView"></div>
+      </div>
+      <div class="result-display">
+        <div class="result-number" id="resultNumber" style="color:#888">--</div>
+        <div class="result-label" id="resultLabel">Place your bets!</div>
+        <button class="btn btn-gold spin-btn" id="spinBtn" onclick="doSpin()" style="display:none">SPIN</button>
+      </div>
+    </div>
+    <div class="history-bar" id="historyBar"></div>
+    <div class="bet-controls">
+      <span class="label">Chip:</span>
+      <div class="chip-selector">
+        <div class="chip chip-1" data-value="1" onclick="selectChip(this)">1</div>
+        <div class="chip chip-5" data-value="5" onclick="selectChip(this)">5</div>
+        <div class="chip chip-10 selected" data-value="10" onclick="selectChip(this)">10</div>
+        <div class="chip chip-25" data-value="25" onclick="selectChip(this)">25</div>
+        <div class="chip chip-50" data-value="50" onclick="selectChip(this)">50</div>
+        <div class="chip chip-100" data-value="100" onclick="selectChip(this)">100</div>
+      </div>
+      <div class="action-btns">
+        <button class="btn btn-sm btn-red" onclick="doUndo()">Undo</button>
+        <button class="btn btn-sm btn-green" onclick="doRebet()">Re-bet</button>
+        <button class="btn btn-sm btn-red" onclick="doClear()">Clear</button>
+      </div>
+    </div>
+    <div class="bet-legend">
+      <span>Number=Straight 35:1</span>
+      <span>Edge=Split 17:1</span>
+      <span>Corner=8:1</span>
+      <span>Street=11:1</span>
+      <span>6-Line=5:1</span>
+      <span>Dozen/Col=2:1</span>
+      <span>Even$=1:1</span>
+    </div>
+    <div class="table-section" id="tableSection"></div>
+    <div class="players-section">
+      <h3>Players</h3>
+      <div class="players-grid" id="playersGrid"></div>
+    </div>
+  </div>
+</div>
+
+<!-- MODALS -->
+<div class="modal-overlay" id="statsModal"><div class="modal" style="max-width:650px">
+  <h2>Leaderboard & Stats</h2>
+  <div id="statsContent"></div>
+  <div class="modal-btns"><button class="btn btn-gold" onclick="closeModals()">Close</button></div>
+</div></div>
+
+<div class="toast" id="toast"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script type="module" src="/js/client.js"></script>
+</body>
+</html>
