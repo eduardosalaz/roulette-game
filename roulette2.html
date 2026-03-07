@@ -46,14 +46,17 @@ body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg
  
 /* WHEEL */
 .wheel-section{display:flex;align-items:center;gap:2rem;flex-wrap:wrap;justify-content:center}
-.wheel-container{position:relative;width:300px;height:300px}
-.wheel-container canvas{width:300px;height:300px}
-.wheel-pointer{position:absolute;top:-12px;left:50%;transform:translateX(-50%);width:0;height:0;border-left:12px solid transparent;border-right:12px solid transparent;border-top:24px solid var(--gold);z-index:5;filter:drop-shadow(0 2px 4px rgba(0,0,0,.5))}
+.wheel-container{position:relative;width:420px;height:420px}
+.wheel-container canvas{width:420px;height:420px}
+.wheel-marker{position:absolute;top:6px;left:50%;transform:translateX(-50%);width:8px;height:8px;background:var(--gold);border-radius:50%;z-index:5;box-shadow:0 0 10px 3px rgba(240,192,64,.8),0 0 20px 6px rgba(240,192,64,.4)}
 .result-display{text-align:center}
-.result-display .result-number{font-size:3.5rem;font-weight:800;line-height:1}
-.result-display .result-label{font-size:1rem;margin-top:.3rem;color:#ccc}
+.result-display .result-number{font-size:3.5rem;font-weight:800;line-height:1;transition:all .3s}
+.result-display .result-number.revealed{font-size:5.5rem;text-shadow:0 0 30px currentColor,0 0 60px currentColor;animation:resultPop .6s ease}
+.result-display .result-label{font-size:1.1rem;margin-top:.5rem;color:#ccc;transition:all .3s}
+.result-display .result-label.revealed{font-size:1.3rem;font-weight:700;color:#fff;letter-spacing:2px}
 .spin-btn{font-size:1.2rem;padding:.8rem 2.5rem;border-radius:50px;margin-top:.4rem}
 .spin-btn:disabled{opacity:.5;cursor:not-allowed}
+@keyframes resultPop{0%{transform:scale(0.3);opacity:0}50%{transform:scale(1.2)}100%{transform:scale(1);opacity:1}}
  
 /* TABLE GRID */
 .table-section{overflow-x:auto;padding:0 .5rem}
@@ -182,8 +185,8 @@ body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg
   <div class="game-body">
     <div class="wheel-section">
       <div class="wheel-container">
-        <div class="wheel-pointer"></div>
-        <canvas id="wheelCanvas" width="600" height="600"></canvas>
+        <div class="wheel-marker"></div>
+        <canvas id="wheelCanvas" width="840" height="840"></canvas>
       </div>
       <div class="result-display">
         <div class="result-number" id="resultNumber" style="color:#888">--</div>
@@ -710,41 +713,41 @@ function renderPlayers(){
 // ═══════════════════════════════════════
 const canvas=document.getElementById('wheelCanvas');
 const ctx=canvas?canvas.getContext('2d'):null;
-const CX=300,CY=300,WR=270;
+const CX=420,CY=420,WR=380;
  
 function drawWheel(wheelRot,ballAngle,ballRadius,showBall){
   if(!ctx)return;
-  ctx.clearRect(0,0,600,600);
+  ctx.clearRect(0,0,840,840);
   const count=WHEEL_ORDER.length,arc=2*Math.PI/count;
  
   ctx.save();ctx.translate(CX,CY);ctx.rotate(wheelRot);
  
   // Outer rim
-  ctx.beginPath();ctx.arc(0,0,WR+4,0,2*Math.PI);ctx.fillStyle='#8B7500';ctx.fill();
+  ctx.beginPath();ctx.arc(0,0,WR+6,0,2*Math.PI);var rimGrad=ctx.createRadialGradient(0,0,WR-2,0,0,WR+6);rimGrad.addColorStop(0,'#b8960a');rimGrad.addColorStop(.5,'#d4af37');rimGrad.addColorStop(1,'#8B7500');ctx.fillStyle=rimGrad;ctx.fill();
  
   for(let i=0;i<count;i++){
     const a=i*arc;
     ctx.beginPath();ctx.moveTo(0,0);ctx.arc(0,0,WR,a,a+arc);ctx.closePath();
     const n=WHEEL_ORDER[i];
     ctx.fillStyle=n===0?'#0a8a3a':RED_NUMBERS.has(n)?'#c0392b':'#2c2c2c';
-    ctx.fill();ctx.strokeStyle='#d4af37';ctx.lineWidth=1;ctx.stroke();
-    ctx.save();ctx.rotate(a);ctx.beginPath();ctx.moveTo(WR-45,0);ctx.lineTo(WR,0);
+    ctx.fill();ctx.strokeStyle='#d4af37';ctx.lineWidth=1.5;ctx.stroke();
+    ctx.save();ctx.rotate(a);ctx.beginPath();ctx.moveTo(WR-60,0);ctx.lineTo(WR,0);
     ctx.strokeStyle='#d4af37';ctx.lineWidth=2;ctx.stroke();ctx.restore();
     ctx.save();ctx.rotate(a+arc/2);
-    ctx.fillStyle='#fff';ctx.font='bold 13px sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';
-    ctx.fillText(n,WR-24,0);ctx.restore();
+    ctx.fillStyle='#fff';ctx.font='bold 16px sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';
+    ctx.fillText(n,WR-32,0);ctx.restore();
   }
  
-  ctx.beginPath();ctx.arc(0,0,WR-48,0,2*Math.PI);ctx.fillStyle='#1a3a1a';ctx.fill();
+  ctx.beginPath();ctx.arc(0,0,WR-64,0,2*Math.PI);ctx.fillStyle='#1a3a1a';ctx.fill();
   ctx.strokeStyle='#d4af37';ctx.lineWidth=3;ctx.stroke();
  
   for(let i=0;i<8;i++){
-    ctx.save();ctx.rotate(i*Math.PI/4);ctx.beginPath();ctx.moveTo(40,0);ctx.lineTo(WR-50,0);
+    ctx.save();ctx.rotate(i*Math.PI/4);ctx.beginPath();ctx.moveTo(55,0);ctx.lineTo(WR-66,0);
     ctx.strokeStyle='#d4af37';ctx.lineWidth=2;ctx.stroke();ctx.restore();
   }
  
-  ctx.beginPath();ctx.arc(0,0,40,0,2*Math.PI);
-  const cg=ctx.createRadialGradient(0,0,10,0,0,40);
+  ctx.beginPath();ctx.arc(0,0,55,0,2*Math.PI);
+  const cg=ctx.createRadialGradient(0,0,14,0,0,55);
   cg.addColorStop(0,'#f0d060');cg.addColorStop(1,'#b8960a');
   ctx.fillStyle=cg;ctx.fill();ctx.strokeStyle='#8B7500';ctx.lineWidth=2;ctx.stroke();
  
@@ -752,10 +755,10 @@ function drawWheel(wheelRot,ballAngle,ballRadius,showBall){
  
   if(showBall&&ballRadius!==undefined){
     const bx=CX+Math.cos(ballAngle)*ballRadius,by=CY+Math.sin(ballAngle)*ballRadius;
-    ctx.beginPath();ctx.arc(bx,by,7,0,2*Math.PI);
-    const bg=ctx.createRadialGradient(bx-2,by-2,1,bx,by,7);
+    ctx.beginPath();ctx.arc(bx,by,9,0,2*Math.PI);
+    const bg=ctx.createRadialGradient(bx-2,by-2,1,bx,by,9);
     bg.addColorStop(0,'#fff');bg.addColorStop(.6,'#ddd');bg.addColorStop(1,'#999');
-    ctx.fillStyle=bg;ctx.fill();ctx.strokeStyle='#666';ctx.lineWidth=1;ctx.stroke();
+    ctx.fillStyle=bg;ctx.fill();ctx.strokeStyle='#666';ctx.lineWidth=1.5;ctx.stroke();
   }
 }
  
@@ -788,6 +791,11 @@ function spin(){
  
   spinning=true;
   document.getElementById('spinBtn').disabled=true;
+  document.getElementById('resultNumber').classList.remove('revealed');
+  document.getElementById('resultLabel').classList.remove('revealed');
+  document.getElementById('resultNumber').textContent='--';
+  document.getElementById('resultNumber').style.color='#888';
+  document.getElementById('resultLabel').textContent='Spinning...';
   undoStack=[];
   players.forEach(p=>p.lastResult=null);
   renderPlayers();
@@ -804,7 +812,7 @@ function spin(){
   const wheelSpins=5+Math.random()*3;
   const wheelTotal=wheelSpins*2*Math.PI+((targetAngle%(2*Math.PI))+2*Math.PI)%(2*Math.PI);
  
-  const TRACK_R=WR+12,POCKET_R=WR-24;
+  const TRACK_R=WR+14,POCKET_R=WR-34;
   const ballStartAngle=Math.random()*2*Math.PI;
   const ballRevs=8+Math.random()*4;
   // Winning segment center in wheel's local coordinate frame
@@ -879,10 +887,14 @@ function spin(){
 function finishSpin(resultNumber){
   const color=numColor(resultNumber);
   const rn=document.getElementById('resultNumber');
+  const rl=document.getElementById('resultLabel');
+  rn.classList.remove('revealed');rl.classList.remove('revealed');
+  void rn.offsetWidth;
   rn.textContent=resultNumber;
   rn.style.color=color==='red'?'#f44':color==='green'?'#4f4':'#fff';
-  document.getElementById('resultLabel').textContent=
-    `${resultNumber} ${color.toUpperCase()}${resultNumber!==0?(resultNumber%2===0?' EVEN':' ODD'):''}`;
+  rn.classList.add('revealed');
+  rl.textContent=`${resultNumber} ${color.toUpperCase()}${resultNumber!==0?(resultNumber%2===0?' EVEN':' ODD'):''}`;
+  rl.classList.add('revealed');
  
   history.unshift(resultNumber);if(history.length>30)history.pop();
   renderHistory();
