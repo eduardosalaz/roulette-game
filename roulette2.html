@@ -48,7 +48,6 @@ body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg
 .wheel-section{display:flex;align-items:center;gap:2rem;flex-wrap:wrap;justify-content:center}
 .wheel-container{position:relative;width:420px;height:420px}
 .wheel-container canvas{width:420px;height:420px}
-.wheel-marker{position:absolute;top:6px;left:50%;transform:translateX(-50%);width:8px;height:8px;background:var(--gold);border-radius:50%;z-index:5;box-shadow:0 0 10px 3px rgba(240,192,64,.8),0 0 20px 6px rgba(240,192,64,.4)}
 .result-display{text-align:center}
 .result-display .result-number{font-size:3.5rem;font-weight:800;line-height:1;transition:all .3s}
 .result-display .result-number.revealed{font-size:5.5rem;text-shadow:0 0 30px currentColor,0 0 60px currentColor;animation:resultPop .6s ease}
@@ -185,7 +184,6 @@ body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg
   <div class="game-body">
     <div class="wheel-section">
       <div class="wheel-container">
-        <div class="wheel-marker"></div>
         <canvas id="wheelCanvas" width="840" height="840"></canvas>
       </div>
       <div class="result-display">
