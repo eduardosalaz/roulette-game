@@ -806,13 +806,12 @@ function spin(){
  
   const TRACK_R=WR+12,POCKET_R=WR-24;
   const ballStartAngle=Math.random()*2*Math.PI;
-  const ballEndAngle=-Math.PI/2;
   const ballRevs=8+Math.random()*4;
-  let ballTotalDelta=ballRevs*2*Math.PI;
-  const rawEnd=ballStartAngle+ballTotalDelta;
-  const offset=ballEndAngle-((rawEnd%(2*Math.PI))+2*Math.PI)%(2*Math.PI);
-  ballTotalDelta+=offset;
-  if(ballTotalDelta<ballRevs*Math.PI)ballTotalDelta+=2*Math.PI;
+  // Winning segment center in wheel's local coordinate frame
+  const winSegLocal=resultIdx*arc+arc/2;
+ 
+  // Precompute the ball's track-end angle (end of outer-track phase)
+  const trackEndAngle=ballStartAngle-ballRevs*2*Math.PI;
  
   const duration=4500+Math.random()*1500;
   const startTime=performance.now();
@@ -824,13 +823,37 @@ function spin(){
     const t=Math.min(elapsed/duration,1);
     const wheelEase=1-Math.pow(1-t,3);
     const wheelRot=wheelTotal*wheelEase;
-    const ballEase=1-Math.pow(1-t,4);
-    const ballAng=ballStartAngle+ballTotalDelta*ballEase;
  
-    let ballR;
-    if(t<.55)ballR=TRACK_R;
-    else if(t<.85){const rt=(t-.55)/.3;ballR=TRACK_R+(POCKET_R-TRACK_R)*(1-Math.pow(1-rt,2))}
-    else{const rt=(t-.85)/.15;ballR=POCKET_R+Math.sin(rt*Math.PI*3)*Math.exp(-rt*4)*5}
+    // Ball position: 3 phases
+    let ballAng,ballR;
+ 
+    if(t<.55){
+      // Phase 1: ball spinning on outer track (opposite direction)
+      const bt=t/.55;
+      const be=1-Math.pow(1-bt,3);
+      ballAng=ballStartAngle-ballRevs*2*Math.PI*be;
+      ballR=TRACK_R;
+    }else if(t<.80){
+      // Phase 2: spiraling inward, converging to winning pocket
+      const bt=(t-.55)/.25;
+      const be=1-Math.pow(1-bt,2);
+      // Target: winning segment's global position (moves with wheel)
+      const targetAng=winSegLocal+wheelRot;
+      // Smooth transition from track end to target
+      let diff=targetAng-trackEndAngle;
+      // Normalize diff so ball takes shortest path + at most one extra loop
+      diff=((diff%(2*Math.PI))+2*Math.PI)%(2*Math.PI);
+      if(diff>Math.PI)diff-=2*Math.PI;
+      ballAng=trackEndAngle+diff*be;
+      ballR=TRACK_R+(POCKET_R-TRACK_R)*be;
+    }else{
+      // Phase 3: locked in pocket, rotating with wheel
+      ballAng=winSegLocal+wheelRot;
+      ballR=POCKET_R;
+      // Settle bounce
+      const bt=(t-.80)/.20;
+      ballR+=Math.sin(bt*Math.PI*3)*Math.exp(-bt*4)*5;
+    }
  
     // Tick sound when segment changes at pointer
     const topAngle=((-Math.PI/2-wheelRot)%(2*Math.PI)+2*Math.PI)%(2*Math.PI);
@@ -843,7 +866,12 @@ function spin(){
     drawWheel(wheelRot,ballAng,ballR,true);
  
     if(t<1)requestAnimationFrame(animate);
-    else{drawWheel(wheelRot,ballEndAngle,POCKET_R,true);finishSpin(resultNumber)}
+    else{
+      // Final frame: ball locked exactly in winning pocket
+      const finalBallAng=winSegLocal+wheelTotal;
+      drawWheel(wheelTotal,finalBallAng,POCKET_R,true);
+      finishSpin(resultNumber);
+    }
   }
   requestAnimationFrame(animate);
 }
@@ -981,4 +1009,5 @@ function toast(msg){
 if(ctx)drawWheel(0);
 </script>
 </body>
+
 </html>
