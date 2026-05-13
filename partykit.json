@@ -1,0 +1,9 @@
+{
+  "$schema": "https://www.partykit.io/schema.json",
+  "name": "roulette-game",
+  "main": "src/server.ts",
+  "compatibilityDate": "2025-12-01",
+  "serve": {
+    "path": "public"
+  }
+}

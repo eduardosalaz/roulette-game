@@ -8,7 +8,7 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{--green:#0a6e2e;--dark-green:#064d1f;--red:#d4213d;--gold:#f0c040;--bg:#1a1a2e}
 body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:#fff;min-height:100vh;overflow-x:hidden}
- 
+
 /* LOBBY */
 #lobby{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:2rem}
 #lobby h1{font-size:3rem;color:var(--gold);text-shadow:0 0 20px rgba(240,192,64,.4);margin-bottom:.5rem;letter-spacing:4px}
@@ -36,19 +36,18 @@ body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg
 .limits-row{display:flex;gap:.75rem;margin-bottom:1rem}
 .limits-row label{flex:1;display:flex;flex-direction:column;font-size:.8rem;color:#aaa}
 .limits-row input{margin-top:.3rem;padding:.5rem .6rem;border-radius:6px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.08);color:#fff;font-size:.9rem}
- 
+
 /* GAME */
 #game{display:none}
 .game-header{display:flex;justify-content:space-between;align-items:center;padding:.7rem 1rem;background:rgba(0,0,0,.4);border-bottom:2px solid var(--gold);flex-wrap:wrap;gap:.4rem}
 .game-header h1{font-size:1.3rem;color:var(--gold);letter-spacing:2px}
 .game-header .header-btns{display:flex;gap:.4rem;flex-wrap:wrap}
 .game-body{display:flex;flex-direction:column;align-items:center;padding:1rem;gap:.8rem}
- 
+
 /* WHEEL */
 .wheel-section{display:flex;align-items:center;gap:2rem;flex-wrap:wrap;justify-content:center}
-.wheel-container{position:relative;width:420px;height:420px}
-.wheel-container canvas{width:420px;height:420px}
-.wheel-marker{position:absolute;top:6px;left:50%;transform:translateX(-50%);width:8px;height:8px;background:var(--gold);border-radius:50%;z-index:5;box-shadow:0 0 10px 3px rgba(240,192,64,.8),0 0 20px 6px rgba(240,192,64,.4)}
+.wheel-container{position:relative;width:500px;height:500px}
+.wheel-container canvas{width:500px;height:500px;border-radius:12px}
 .result-display{text-align:center}
 .result-display .result-number{font-size:3.5rem;font-weight:800;line-height:1;transition:all .3s}
 .result-display .result-number.revealed{font-size:5.5rem;text-shadow:0 0 30px currentColor,0 0 60px currentColor;animation:resultPop .6s ease}
@@ -57,7 +56,7 @@ body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg
 .spin-btn{font-size:1.2rem;padding:.8rem 2.5rem;border-radius:50px;margin-top:.4rem}
 .spin-btn:disabled{opacity:.5;cursor:not-allowed}
 @keyframes resultPop{0%{transform:scale(0.3);opacity:0}50%{transform:scale(1.2)}100%{transform:scale(1);opacity:1}}
- 
+
 /* TABLE GRID */
 .table-section{overflow-x:auto;padding:0 .5rem}
 .num-grid{display:grid;grid-template-columns:52px 6px repeat(12,54px 6px) 54px;grid-template-rows:50px 6px 50px 6px 50px 6px 22px;position:relative;margin:0 auto;width:fit-content}
@@ -73,11 +72,11 @@ body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg
 .outside-row{display:flex;margin:2px auto 0;width:fit-content;gap:2px}
 .obcell{display:flex;align-items:center;justify-content:center;height:40px;font-weight:700;font-size:.82rem;cursor:pointer;background:var(--dark-green);color:#ddd;border:2px solid rgba(255,255,255,.25);transition:all .15s;user-select:none;position:relative;border-radius:3px}
 .obcell:hover{filter:brightness(1.4);box-shadow:inset 0 0 10px rgba(255,255,255,.15)}
- 
+
 /* CHIP STACKS */
 .chip-stack{position:absolute;bottom:1px;right:1px;display:flex;flex-direction:column-reverse;gap:1px;align-items:center;pointer-events:none;z-index:2}
 .table-chip{width:18px;height:18px;border-radius:50%;font-size:.5rem;font-weight:800;color:#fff;display:flex;align-items:center;justify-content:center;border:2px solid rgba(255,255,255,.7);text-shadow:0 0 2px rgba(0,0,0,.8);box-shadow:0 1px 3px rgba(0,0,0,.4)}
- 
+
 /* PLAYERS */
 .players-section{width:100%;max-width:920px}
 .players-section h3{color:var(--gold);margin-bottom:.4rem;font-size:1rem}
@@ -93,7 +92,7 @@ body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg
 .player-card .pc-result.win{color:#4f4}.player-card .pc-result.lose{color:#f66}
 .player-card .pc-bankrupt{color:#f66;font-weight:700;font-size:.85rem;margin-top:.2rem}
 .player-card .rebuy-btn{margin-top:.3rem}
- 
+
 /* BET CONTROLS */
 .bet-controls{display:flex;align-items:center;gap:.7rem;flex-wrap:wrap;justify-content:center;padding:.5rem .8rem;background:rgba(0,0,0,.3);border-radius:12px;width:100%;max-width:920px}
 .bet-controls .label{font-weight:600;color:var(--gold);font-size:.9rem}
@@ -104,7 +103,7 @@ body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg
 .chip-1{background:#fff;color:#333}.chip-5{background:#e03030;color:#fff}.chip-10{background:#3060d0;color:#fff}
 .chip-25{background:#20a020;color:#fff}.chip-50{background:#d06020;color:#fff}.chip-100{background:#111;color:#fff}
 .action-btns{display:flex;gap:.35rem;flex-wrap:wrap}
- 
+
 /* MODALS */
 .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:100;align-items:center;justify-content:center}
 .modal-overlay.show{display:flex}
@@ -117,35 +116,35 @@ body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg
 .stats-table td{padding:.4rem .5rem;border-bottom:1px solid rgba(255,255,255,.06)}
 .stats-table tr:hover{background:rgba(255,255,255,.04)}
 .stats-dot{width:10px;height:10px;border-radius:50%;display:inline-block;margin-right:.3rem;vertical-align:middle}
- 
+
 /* HISTORY */
 .history-bar{display:flex;gap:4px;flex-wrap:wrap;max-width:920px;width:100%}
 .history-num{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:700;border:2px solid rgba(255,255,255,.3)}
 .history-num.hred{background:var(--red)}.history-num.hblack{background:#222}.history-num.hgreen{background:var(--green)}
- 
+
 /* TOAST */
 .toast{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%) translateY(80px);background:rgba(0,0,0,.88);color:#fff;padding:.7rem 1.5rem;border-radius:10px;font-weight:600;z-index:200;transition:transform .3s,opacity .3s;opacity:0;pointer-events:none;font-size:.9rem;max-width:90%;text-align:center}
 .toast.show{transform:translateX(-50%) translateY(0);opacity:1}
- 
+
 /* BET LEGEND */
 .bet-legend{display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;font-size:.75rem;color:#999;max-width:920px}
- 
+
 /* BET POPUP */
 .bet-popup{position:fixed;pointer-events:none;background:rgba(0,0,0,.88);color:#fff;padding:3px 10px;border-radius:6px;font-size:.78rem;font-weight:600;z-index:50;white-space:nowrap}
 @keyframes betPopUp{0%{opacity:1;transform:translateY(0)}100%{opacity:0;transform:translateY(-25px)}}
- 
+
 /* WIN HIGHLIGHT */
 @keyframes winPulse{0%,100%{box-shadow:0 0 0 0 rgba(240,192,64,0)}50%{box-shadow:0 0 18px 4px rgba(240,192,64,.85)}}
 .win-highlight{animation:winPulse .5s ease 5;z-index:10;position:relative}
- 
+
 /* CONFETTI */
 #confettiCanvas{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:300;display:none}
 </style>
 </head>
 <body>
 <canvas id="confettiCanvas"></canvas>
- 
-<!-- ═══════ LOBBY ═══════ -->
+
+<!-- LOBBY -->
 <div id="lobby">
   <h1>ROULETTE</h1>
   <p class="subtitle">Multiplayer Casino Game</p>
@@ -170,8 +169,8 @@ body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg
     </div>
   </div>
 </div>
- 
-<!-- ═══════ GAME ═══════ -->
+
+<!-- GAME -->
 <div id="game">
   <div class="game-header">
     <h1>ROULETTE</h1>
@@ -185,8 +184,7 @@ body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg
   <div class="game-body">
     <div class="wheel-section">
       <div class="wheel-container">
-        <div class="wheel-marker"></div>
-        <canvas id="wheelCanvas" width="840" height="840"></canvas>
+        <div id="wheelView"></div>
       </div>
       <div class="result-display">
         <div class="result-number" id="resultNumber" style="color:#888">--</div>
@@ -229,7 +227,7 @@ body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg
     </div>
   </div>
 </div>
- 
+
 <!-- MODALS -->
 <div class="modal-overlay" id="addModal"><div class="modal">
   <h2>Add Player</h2>
@@ -237,28 +235,29 @@ body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg
   <input type="number" id="modalPlayerMoney" placeholder="Starting balance" min="100" step="100">
   <div class="modal-btns"><button class="btn btn-red" onclick="closeModals()">Cancel</button><button class="btn btn-gold" onclick="addPlayerGame()">Add</button></div>
 </div></div>
- 
+
 <div class="modal-overlay" id="removeModal"><div class="modal">
   <h2>Remove Player</h2>
   <select id="removeSelect"></select>
   <div class="modal-btns"><button class="btn btn-red" onclick="closeModals()">Cancel</button><button class="btn btn-gold" onclick="removePlayerGame()">Remove</button></div>
 </div></div>
- 
+
 <div class="modal-overlay" id="rebuyModal"><div class="modal">
   <h2>Rebuy</h2>
   <p style="color:#aaa;margin-bottom:.8rem" id="rebuyLabel">Add funds for player</p>
   <input type="number" id="rebuyAmount" value="1000" min="100" step="100">
   <div class="modal-btns"><button class="btn btn-red" onclick="closeModals()">Cancel</button><button class="btn btn-gold" onclick="doRebuy()">Rebuy</button></div>
 </div></div>
- 
+
 <div class="modal-overlay" id="statsModal"><div class="modal" style="max-width:650px">
   <h2>Leaderboard & Stats</h2>
   <div id="statsContent"></div>
   <div class="modal-btns"><button class="btn btn-gold" onclick="closeModals()">Close</button></div>
 </div></div>
- 
+
 <div class="toast" id="toast"></div>
- 
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
 // ═══════════════════════════════════════
 //  CONSTANTS
@@ -268,27 +267,27 @@ const RED_NUMBERS=new Set([1,3,5,7,9,12,14,16,18,19,21,23,25,27,30,32,34,36]);
 const PLAYER_COLORS=['#e74c3c','#3498db','#2ecc71','#f39c12','#9b59b6','#1abc9c','#e91e63','#ff5722','#00bcd4','#cddc39'];
 function numColor(n){return n===0?'green':RED_NUMBERS.has(n)?'red':'black'}
 function gridToNum(r,c){return c*3+(3-r)}
- 
+
 // ═══════════════════════════════════════
 //  STATE
 // ═══════════════════════════════════════
 let players=[], selectedChip=10, spinning=false, history=[], defaultStartMoney=1000;
 let colorIdx=0, soundOn=true, tableMin=0, tableMax=0;
-let undoStack=[]; // {playerIdx, betKey, amount}
+let undoStack=[];
 let rebuyTargetIdx=-1;
- 
+
 // ═══════════════════════════════════════
 //  SOUND ENGINE (Web Audio API)
 // ═══════════════════════════════════════
 const AudioCtx=window.AudioContext||window.webkitAudioContext;
 let audioCtx;
 function ensureAudio(){if(!audioCtx)try{audioCtx=new AudioCtx()}catch(e){}}
- 
+
 function toggleSound(){
   soundOn=!soundOn;
   document.getElementById('soundBtn').textContent='Sound: '+(soundOn?'ON':'OFF');
 }
- 
+
 function playTone(freq,dur,vol,type,delay){
   if(!soundOn)return;ensureAudio();if(!audioCtx)return;
   const o=audioCtx.createOscillator(),g=audioCtx.createGain();
@@ -300,21 +299,21 @@ function playTone(freq,dur,vol,type,delay){
   g.gain.exponentialRampToValueAtTime(.001,t+(dur||.1));
   o.start(t);o.stop(t+(dur||.1));
 }
- 
+
 function sndChip(){playTone(1200,.06,.08)}
 function sndTick(){playTone(1500,.025,.05,'square')}
 function sndBallDrop(){[0,.07,.12,.16,.19].forEach((d,i)=>playTone(1200-i*100,.05,.08-i*.012,'sine',d))}
 function sndWin(){[523,659,784,1047].forEach((f,i)=>playTone(f,.25,.15,'sine',i*.12))}
 function sndLose(){[400,350,300].forEach((f,i)=>playTone(f,.25,.1,'sine',i*.18))}
 function sndBigWin(){[523,659,784,1047,1318].forEach((f,i)=>playTone(f,.35,.18,'sine',i*.1))}
- 
+
 // ═══════════════════════════════════════
 //  CONFETTI
 // ═══════════════════════════════════════
 const confCanvas=document.getElementById('confettiCanvas');
 const confCtx=confCanvas?confCanvas.getContext('2d'):null;
 let confParticles=[],confAnimId;
- 
+
 function launchConfetti(){
   if(!confCtx)return;
   confCanvas.width=window.innerWidth;confCanvas.height=window.innerHeight;
@@ -331,7 +330,7 @@ function launchConfetti(){
   animConfetti();
   setTimeout(()=>{confCanvas.style.display='none';cancelAnimationFrame(confAnimId)},3500);
 }
- 
+
 function animConfetti(){
   confCtx.clearRect(0,0,confCanvas.width,confCanvas.height);
   let alive=false;
@@ -346,7 +345,7 @@ function animConfetti(){
   });
   if(alive)confAnimId=requestAnimationFrame(animConfetti);
 }
- 
+
 // ═══════════════════════════════════════
 //  BET POPUP (floating confirmation)
 // ═══════════════════════════════════════
@@ -361,12 +360,12 @@ function showBetPopup(el,text){
   document.body.appendChild(pop);
   setTimeout(()=>pop.remove(),850);
 }
- 
+
 // ═══════════════════════════════════════
 //  LOBBY
 // ═══════════════════════════════════════
 document.getElementById('playerName').addEventListener('keydown',e=>{if(e.key==='Enter')addPlayerLobby()});
- 
+
 function addPlayerLobby(){
   const inp=document.getElementById('playerName'),name=inp.value.trim();
   if(!name)return;
@@ -375,20 +374,20 @@ function addPlayerLobby(){
   players.push(createPlayer(name,money));
   inp.value='';inp.focus();renderLobbyPlayers();
 }
- 
+
 function createPlayer(name,balance){
   return{name,balance,bets:{},prevBets:{},lastResult:null,color:PLAYER_COLORS[colorIdx++%PLAYER_COLORS.length],
     stats:{totalWagered:0,totalWon:0,biggestWin:0,roundsPlayed:0,roundsWon:0}};
 }
- 
+
 function removeLobbyPlayer(i){players.splice(i,1);renderLobbyPlayers()}
- 
+
 function renderLobbyPlayers(){
   document.getElementById('lobbyPlayers').innerHTML=players.map((p,i)=>
     `<li><span class="pleft"><span class="pcolor" style="background:${p.color}"></span><span class="pname">${esc(p.name)}</span></span><span class="pbal">$${p.balance.toLocaleString()}</span><button onclick="removeLobbyPlayer(${i})">&times;</button></li>`
   ).join('');
 }
- 
+
 function startGame(){
   if(players.length<1){toast('Add at least 1 player');return}
   defaultStartMoney=parseInt(document.getElementById('startMoney').value)||1000;
@@ -396,9 +395,9 @@ function startGame(){
   tableMax=parseInt(document.getElementById('tableMax').value)||0;
   document.getElementById('lobby').style.display='none';
   document.getElementById('game').style.display='block';
-  buildTable();drawWheel(0);refreshPlayerSelect();renderPlayers();
+  buildTable();init3D();refreshPlayerSelect();renderPlayers();
 }
- 
+
 // ═══════════════════════════════════════
 //  ADD/REMOVE PLAYERS MID-GAME
 // ═══════════════════════════════════════
@@ -409,7 +408,7 @@ function openAddPlayer(){
   setTimeout(()=>document.getElementById('modalPlayerName').focus(),100);
 }
 document.getElementById('modalPlayerName').addEventListener('keydown',e=>{if(e.key==='Enter')addPlayerGame()});
- 
+
 function addPlayerGame(){
   const name=document.getElementById('modalPlayerName').value.trim();
   const money=parseInt(document.getElementById('modalPlayerMoney').value)||defaultStartMoney;
@@ -418,27 +417,27 @@ function addPlayerGame(){
   players.push(createPlayer(name,money));
   closeModals();refreshPlayerSelect();renderPlayers();toast(`${name} joined!`);
 }
- 
+
 function openRemovePlayer(){
   document.getElementById('removeSelect').innerHTML=players.map((p,i)=>`<option value="${i}">${esc(p.name)}</option>`).join('');
   document.getElementById('removeModal').classList.add('show');
 }
- 
+
 function removePlayerGame(){
   const idx=parseInt(document.getElementById('removeSelect').value);
   if(isNaN(idx))return;const name=players[idx].name;
   players.splice(idx,1);closeModals();refreshPlayerSelect();renderPlayers();updateAllChipStacks();
   toast(`${name} left`);
 }
- 
+
 function closeModals(){document.querySelectorAll('.modal-overlay').forEach(m=>m.classList.remove('show'))}
- 
+
 function refreshPlayerSelect(){
   const sel=document.getElementById('activePlayer'),cur=sel.value;
   sel.innerHTML=players.map((p,i)=>`<option value="${i}">${esc(p.name)}</option>`).join('');
   if(cur&&cur<players.length)sel.value=cur;
 }
- 
+
 // ═══════════════════════════════════════
 //  REBUY
 // ═══════════════════════════════════════
@@ -448,7 +447,7 @@ function openRebuy(idx){
   document.getElementById('rebuyAmount').value=defaultStartMoney;
   document.getElementById('rebuyModal').classList.add('show');
 }
- 
+
 function doRebuy(){
   if(rebuyTargetIdx<0||rebuyTargetIdx>=players.length)return;
   const amt=parseInt(document.getElementById('rebuyAmount').value)||0;
@@ -456,7 +455,7 @@ function doRebuy(){
   players[rebuyTargetIdx].balance+=amt;
   closeModals();renderPlayers();toast(`${players[rebuyTargetIdx].name} bought in for $${amt.toLocaleString()}`);
 }
- 
+
 // ═══════════════════════════════════════
 //  STATS / LEADERBOARD
 // ═══════════════════════════════════════
@@ -481,7 +480,7 @@ function openStats(){
   document.getElementById('statsContent').innerHTML=html;
   document.getElementById('statsModal').classList.add('show');
 }
- 
+
 // ═══════════════════════════════════════
 //  CHIPS & BETS
 // ═══════════════════════════════════════
@@ -489,10 +488,10 @@ function selectChip(el){
   document.querySelectorAll('.chip').forEach(c=>c.classList.remove('selected'));
   el.classList.add('selected');selectedChip=parseInt(el.dataset.value);
 }
- 
+
 function getActivePlayer(){return players[parseInt(document.getElementById('activePlayer').value)]||null}
 function getActiveIdx(){return parseInt(document.getElementById('activePlayer').value)||0}
- 
+
 function betLabel(key){
   if(key.startsWith('n'))return'#'+key.slice(1);
   if(key.startsWith('sp_'))return'Split '+key.slice(3).replace(/_/g,'-');
@@ -504,7 +503,7 @@ function betLabel(key){
     doz1:'1st 12',doz2:'2nd 12',doz3:'3rd 12',col1:'Col 1',col2:'Col 2',col3:'Col 3'};
   return labels[key]||key;
 }
- 
+
 function placeBet(betKey,fromEl){
   if(spinning||!betKey)return;
   const p=getActivePlayer();
@@ -517,10 +516,9 @@ function placeBet(betKey,fromEl){
   undoStack.push({playerIdx:getActiveIdx(),betKey,amount:selectedChip});
   sndChip();
   renderPlayers();updateChipStack(betKey);
-  // Popup
   if(fromEl)showBetPopup(fromEl,`${betLabel(betKey)}: $${selectedChip}`);
 }
- 
+
 function undoLastBet(){
   if(undoStack.length===0){toast('Nothing to undo');return}
   const last=undoStack.pop();
@@ -533,7 +531,7 @@ function undoLastBet(){
   renderPlayers();updateAllChipStacks();
   toast('Bet undone');
 }
- 
+
 function rebet(){
   const p=getActivePlayer();
   if(!p){toast('Select a player');return}
@@ -547,15 +545,14 @@ function rebet(){
   }
   sndChip();renderPlayers();updateAllChipStacks();toast('Previous bets restored');
 }
- 
+
 function clearBets(){
   const p=getActivePlayer();if(!p)return;
-  // Remove this player's entries from undo stack
   const idx=getActiveIdx();
   undoStack=undoStack.filter(u=>u.playerIdx!==idx);
   p.bets={};renderPlayers();updateAllChipStacks();
 }
- 
+
 // ═══════════════════════════════════════
 //  CHIP STACKS ON TABLE
 // ═══════════════════════════════════════
@@ -567,7 +564,7 @@ function buildChipStackHTML(betKey){
   });
   return chips.length?`<div class="chip-stack">${chips.join('')}</div>`:'';
 }
- 
+
 function updateChipStack(betKey){
   const el=document.querySelector(`[data-bet="${CSS.escape(betKey)}"]`);
   if(!el)return;
@@ -575,7 +572,7 @@ function updateChipStack(betKey){
   const h=buildChipStackHTML(betKey);
   if(h)el.insertAdjacentHTML('beforeend',h);
 }
- 
+
 function updateAllChipStacks(){
   document.querySelectorAll('[data-bet]').forEach(el=>{
     const k=el.dataset.bet;if(!k)return;
@@ -583,93 +580,66 @@ function updateAllChipStacks(){
     const h=buildChipStackHTML(k);if(h)el.insertAdjacentHTML('beforeend',h);
   });
 }
- 
+
 // ═══════════════════════════════════════
 //  BUILD TABLE
 // ═══════════════════════════════════════
 function cellClick(betKey){
   return `onclick="placeBet('${betKey}',this)"`;
 }
- 
+
 function buildTable(){
   const sec=document.getElementById('tableSection');
   let html='<div class="num-grid">';
- 
-  // Zero: col 1, rows 1-5
   html+=`<div class="num-cell cgreen" style="grid-column:1;grid-row:1/span 5;font-size:1.5rem;border-radius:6px 0 0 6px" data-bet="n0" ${cellClick('n0')}>0</div>`;
- 
-  // Number cells
   for(let r=0;r<3;r++)for(let c=0;c<12;c++){
     const n=gridToNum(r,c),gc=3+c*2,gr=1+r*2;
     const cls=numColor(n)==='red'?'cred':'cblack';
     html+=`<div class="num-cell ${cls}" style="grid-column:${gc};grid-row:${gr}" data-bet="n${n}" ${cellClick('n'+n)}>${n}</div>`;
   }
- 
-  // Vertical splits (same row, between col c and c+1)
   for(let r=0;r<3;r++)for(let c=0;c<11;c++){
     const n1=gridToNum(r,c),n2=gridToNum(r,c+1),a=Math.min(n1,n2),b=Math.max(n1,n2);
     const k=`sp_${a}_${b}`,gc=4+c*2,gr=1+r*2;
     html+=`<div class="gap-cell" style="grid-column:${gc};grid-row:${gr}" data-bet="${k}" ${cellClick(k)} title="Split ${a}-${b}"><div class="gap-dot"></div></div>`;
   }
- 
-  // Horizontal splits (between row r and r+1, same col)
   for(let r=0;r<2;r++)for(let c=0;c<12;c++){
     const n1=gridToNum(r,c),n2=gridToNum(r+1,c),a=Math.min(n1,n2),b=Math.max(n1,n2);
     const k=`sp_${a}_${b}`,gc=3+c*2,gr=2+r*2;
     html+=`<div class="gap-cell" style="grid-column:${gc};grid-row:${gr}" data-bet="${k}" ${cellClick(k)} title="Split ${a}-${b}"><div class="gap-dot"></div></div>`;
   }
- 
-  // Corner bets (intersection of 4)
   for(let r=0;r<2;r++)for(let c=0;c<11;c++){
     const nums=[gridToNum(r,c),gridToNum(r,c+1),gridToNum(r+1,c),gridToNum(r+1,c+1)].sort((a,b)=>a-b);
     const k=`cr_${nums.join('_')}`,gc=4+c*2,gr=2+r*2;
     html+=`<div class="gap-cell" style="grid-column:${gc};grid-row:${gr}" data-bet="${k}" ${cellClick(k)} title="Corner ${nums.join('-')}"><div class="gap-dot" style="width:12px;height:12px"></div></div>`;
   }
- 
-  // Zero splits (gap col 2)
   for(let r=0;r<3;r++){
     const n=gridToNum(r,0),k=`sp_0_${n}`,gr=1+r*2;
     html+=`<div class="gap-cell" style="grid-column:2;grid-row:${gr}" data-bet="${k}" ${cellClick(k)} title="Split 0-${n}"><div class="gap-dot"></div></div>`;
   }
- 
-  // Zero corners (0+2 adjacent in col 0)
   html+=`<div class="gap-cell" style="grid-column:2;grid-row:2" data-bet="cr_0_2_3" ${cellClick('cr_0_2_3')} title="Corner 0-2-3"><div class="gap-dot" style="width:11px;height:11px"></div></div>`;
   html+=`<div class="gap-cell" style="grid-column:2;grid-row:4" data-bet="cr_0_1_2" ${cellClick('cr_0_1_2')} title="Corner 0-1-2"><div class="gap-dot" style="width:11px;height:11px"></div></div>`;
- 
-  // Column bets (2:1)
   for(let r=0;r<3;r++){
     const cn=3-r,gr=1+r*2;
     html+=`<div class="col-bet" style="grid-column:27;grid-row:${gr}" data-bet="col${cn}" ${cellClick('col'+cn)}>2:1</div>`;
   }
- 
-  // Street bets (row 7) - each column of 3
   for(let c=0;c<12;c++){
     const n1=c*3+1,n2=c*3+2,n3=c*3+3;
     const k=`st_${n1}_${n2}_${n3}`,gc=3+c*2;
     html+=`<div class="street-cell" style="grid-column:${gc};grid-row:7;font-size:.6rem" data-bet="${k}" ${cellClick(k)} title="Street ${n1}-${n2}-${n3}">ST</div>`;
   }
- 
-  // Six-line bets (row 7, gap cols between streets)
   for(let c=0;c<11;c++){
     const n1=c*3+1,n6=(c+1)*3+3;
     const k=`sl_${n1}_${n6}`,gc=4+c*2;
     html+=`<div class="gap-cell" style="grid-column:${gc};grid-row:7" data-bet="${k}" ${cellClick(k)} title="Six Line ${n1}-${n6}"><div class="gap-dot" style="width:11px;height:11px;background:rgba(255,255,255,.18)"></div></div>`;
   }
- 
-  // Basket bet (0-1-2-3) row 7, col 1-2
   html+=`<div class="street-cell" style="grid-column:1/span 2;grid-row:7;font-size:.55rem" data-bet="basket" ${cellClick('basket')} title="Basket 0-1-2-3 (8:1)">0-1-2-3</div>`;
- 
   html+='</div>';
- 
-  // Outside bets
   const zw=52+6,nw=54*12+6*11,tw=zw+nw+54;
- 
   html+=`<div class="outside-row" style="width:${tw}px;padding-left:${zw}px">`;
   html+=`<div class="obcell" style="flex:1" data-bet="doz1" ${cellClick('doz1')}>1st 12</div>`;
   html+=`<div class="obcell" style="flex:1" data-bet="doz2" ${cellClick('doz2')}>2nd 12</div>`;
   html+=`<div class="obcell" style="flex:1" data-bet="doz3" ${cellClick('doz3')}>3rd 12</div>`;
   html+='</div>';
- 
   html+=`<div class="outside-row" style="width:${tw}px;padding-left:${zw}px">`;
   html+=`<div class="obcell" style="flex:1" data-bet="low" ${cellClick('low')}>1-18</div>`;
   html+=`<div class="obcell" style="flex:1" data-bet="even" ${cellClick('even')}>EVEN</div>`;
@@ -678,10 +648,9 @@ function buildTable(){
   html+=`<div class="obcell" style="flex:1" data-bet="odd" ${cellClick('odd')}>ODD</div>`;
   html+=`<div class="obcell" style="flex:1" data-bet="high" ${cellClick('high')}>19-36</div>`;
   html+='</div>';
- 
   sec.innerHTML=html;
 }
- 
+
 // ═══════════════════════════════════════
 //  RENDER PLAYERS
 // ═══════════════════════════════════════
@@ -707,88 +676,356 @@ function renderPlayers(){
     </div>`;
   }).join('');
 }
- 
+
 // ═══════════════════════════════════════
-//  WHEEL DRAWING
+//  3D WHEEL (Three.js + Physics)
 // ═══════════════════════════════════════
-const canvas=document.getElementById('wheelCanvas');
-const ctx=canvas?canvas.getContext('2d'):null;
-const CX=420,CY=420,WR=380;
- 
-function drawWheel(wheelRot,ballAngle,ballRadius,showBall){
-  if(!ctx)return;
-  ctx.clearRect(0,0,840,840);
-  const count=WHEEL_ORDER.length,arc=2*Math.PI/count;
- 
-  ctx.save();ctx.translate(CX,CY);ctx.rotate(wheelRot);
- 
-  // Outer rim
-  ctx.beginPath();ctx.arc(0,0,WR+6,0,2*Math.PI);var rimGrad=ctx.createRadialGradient(0,0,WR-2,0,0,WR+6);rimGrad.addColorStop(0,'#b8960a');rimGrad.addColorStop(.5,'#d4af37');rimGrad.addColorStop(1,'#8B7500');ctx.fillStyle=rimGrad;ctx.fill();
- 
-  for(let i=0;i<count;i++){
-    const a=i*arc;
-    ctx.beginPath();ctx.moveTo(0,0);ctx.arc(0,0,WR,a,a+arc);ctx.closePath();
+const N_SEG=WHEEL_ORDER.length;
+const SEG_ARC=2*Math.PI/N_SEG;
+
+// Wheel geometry dimensions (world units)
+const W_R=4.8;       // pocket outer radius
+const W_IR=3.0;      // pocket inner radius
+const TRACK_R=5.5;   // ball track radius
+const TRACK_H=1.2;   // track height above pockets
+const DIV_H=0.35;    // divider height
+const BALL_R=0.13;   // ball radius
+const RIM_R=5.9;     // outer rim
+
+let scene3d,camera3d,renderer3d,wheelGrp,ballMesh3d;
+let wheelAngle=0,wheelOmega=0;
+let ballSt=null,physActive=false,settleCount=0,lastPocket=-1,spinStart=0;
+
+function init3D(){
+  const el=document.getElementById('wheelView');
+  scene3d=new THREE.Scene();
+  scene3d.background=new THREE.Color(0x1a1a2e);
+
+  camera3d=new THREE.PerspectiveCamera(40,1,0.1,100);
+  camera3d.position.set(0,10,7);
+  camera3d.lookAt(0,0,0);
+
+  renderer3d=new THREE.WebGLRenderer({antialias:true});
+  renderer3d.setSize(500,500);
+  renderer3d.setPixelRatio(Math.min(window.devicePixelRatio,2));
+  renderer3d.shadowMap.enabled=true;
+  renderer3d.shadowMap.type=THREE.PCFSoftShadowMap;
+  el.appendChild(renderer3d.domElement);
+
+  // Lighting
+  scene3d.add(new THREE.AmbientLight(0xffffff,0.5));
+  const dl=new THREE.DirectionalLight(0xffffff,0.8);
+  dl.position.set(5,12,5);dl.castShadow=true;
+  dl.shadow.mapSize.set(1024,1024);
+  scene3d.add(dl);
+  const pl=new THREE.PointLight(0xf0c040,0.4,20);
+  pl.position.set(0,6,0);scene3d.add(pl);
+
+  buildWheel3D();
+  createBall3D();
+  render3DLoop();
+}
+
+function buildWheel3D(){
+  wheelGrp=new THREE.Group();
+  scene3d.add(wheelGrp);
+  const goldMat=new THREE.MeshStandardMaterial({color:0xd4af37,metalness:0.8,roughness:0.2});
+
+  // Pocket segments + numbers
+  for(let i=0;i<N_SEG;i++){
     const n=WHEEL_ORDER[i];
-    ctx.fillStyle=n===0?'#0a8a3a':RED_NUMBERS.has(n)?'#c0392b':'#2c2c2c';
-    ctx.fill();ctx.strokeStyle='#d4af37';ctx.lineWidth=1.5;ctx.stroke();
-    ctx.save();ctx.rotate(a);ctx.beginPath();ctx.moveTo(WR-60,0);ctx.lineTo(WR,0);
-    ctx.strokeStyle='#d4af37';ctx.lineWidth=2;ctx.stroke();ctx.restore();
-    ctx.save();ctx.rotate(a+arc/2);
-    ctx.fillStyle='#fff';ctx.font='bold 16px sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';
-    ctx.fillText(n,WR-32,0);ctx.restore();
+    const col=n===0?0x0a8a3a:RED_NUMBERS.has(n)?0xb5172e:0x1a1a1a;
+    const sg=new THREE.RingGeometry(W_IR,W_R,12,1,i*SEG_ARC,SEG_ARC);
+    const sm=new THREE.Mesh(sg,new THREE.MeshStandardMaterial({color:col,roughness:0.6}));
+    sm.rotation.x=-Math.PI/2;
+    sm.position.y=0.001*i; // prevent z-fighting
+    sm.receiveShadow=true;
+    wheelGrp.add(sm);
+
+    // Number label
+    const midA=(i+0.5)*SEG_ARC, midR2=(W_IR+W_R)/2;
+    const nc=document.createElement('canvas');
+    nc.width=64;nc.height=64;
+    const nx=nc.getContext('2d');
+    nx.fillStyle='#fff';nx.font='bold 36px Arial';
+    nx.textAlign='center';nx.textBaseline='middle';
+    nx.fillText(String(n),32,32);
+    const numMesh=new THREE.Mesh(
+      new THREE.PlaneGeometry(0.5,0.5),
+      new THREE.MeshBasicMaterial({map:new THREE.CanvasTexture(nc),transparent:true,side:THREE.DoubleSide,depthWrite:false})
+    );
+    numMesh.position.set(Math.cos(midA)*midR2,0.02,Math.sin(midA)*midR2);
+    numMesh.rotation.x=-Math.PI/2;
+    numMesh.rotation.z=-midA-Math.PI/2;
+    wheelGrp.add(numMesh);
   }
- 
-  ctx.beginPath();ctx.arc(0,0,WR-64,0,2*Math.PI);ctx.fillStyle='#1a3a1a';ctx.fill();
-  ctx.strokeStyle='#d4af37';ctx.lineWidth=3;ctx.stroke();
- 
+
+  // Pocket dividers (gold walls between pockets)
+  for(let i=0;i<N_SEG;i++){
+    const a=i*SEG_ARC, midR2=(W_IR+W_R)/2;
+    const dm=new THREE.Mesh(new THREE.BoxGeometry(W_R-W_IR,DIV_H,0.025),goldMat);
+    dm.position.set(Math.cos(a)*midR2,DIV_H/2,Math.sin(a)*midR2);
+    dm.rotation.y=-a;
+    dm.castShadow=true;
+    wheelGrp.add(dm);
+  }
+
+  // Center hub (golden cone)
+  const hub=new THREE.Mesh(
+    new THREE.ConeGeometry(W_IR*0.8,1.5,32),
+    new THREE.MeshStandardMaterial({color:0xd4af37,metalness:0.7,roughness:0.3})
+  );
+  hub.position.y=0.6;
+  wheelGrp.add(hub);
+
+  // Inner gold ring
+  const ir=new THREE.Mesh(new THREE.TorusGeometry(W_IR,0.06,8,64),goldMat);
+  ir.rotation.x=Math.PI/2;ir.position.y=0.06;
+  wheelGrp.add(ir);
+
+  // Outer pocket ring
+  const opr=new THREE.Mesh(new THREE.TorusGeometry(W_R,0.08,8,64),goldMat);
+  opr.rotation.x=Math.PI/2;opr.position.y=0.08;
+  wheelGrp.add(opr);
+
+  // ── STATIC PARTS (don't spin) ──
+
+  // Ball track slope (cone between rim and pockets)
+  const trackMesh=new THREE.Mesh(
+    new THREE.CylinderGeometry(TRACK_R,W_R+0.12,TRACK_H,64,1,true),
+    new THREE.MeshStandardMaterial({color:0x2a1808,roughness:0.85,side:THREE.DoubleSide})
+  );
+  trackMesh.position.y=TRACK_H/2;
+  scene3d.add(trackMesh);
+
+  // Outer rim (gold torus)
+  const rimMesh=new THREE.Mesh(
+    new THREE.TorusGeometry(RIM_R,0.3,16,64),
+    new THREE.MeshStandardMaterial({color:0x8B7500,metalness:0.8,roughness:0.2})
+  );
+  rimMesh.rotation.x=Math.PI/2;rimMesh.position.y=TRACK_H+0.05;
+  scene3d.add(rimMesh);
+
+  // Table base
+  const tableMesh=new THREE.Mesh(
+    new THREE.CylinderGeometry(RIM_R+0.5,RIM_R+0.5,0.4,64),
+    new THREE.MeshStandardMaterial({color:0x0d0500,roughness:0.9})
+  );
+  tableMesh.position.y=-0.3;tableMesh.receiveShadow=true;
+  scene3d.add(tableMesh);
+
+  // Metal deflectors on the track (8 diamonds)
   for(let i=0;i<8;i++){
-    ctx.save();ctx.rotate(i*Math.PI/4);ctx.beginPath();ctx.moveTo(55,0);ctx.lineTo(WR-66,0);
-    ctx.strokeStyle='#d4af37';ctx.lineWidth=2;ctx.stroke();ctx.restore();
-  }
- 
-  ctx.beginPath();ctx.arc(0,0,55,0,2*Math.PI);
-  const cg=ctx.createRadialGradient(0,0,14,0,0,55);
-  cg.addColorStop(0,'#f0d060');cg.addColorStop(1,'#b8960a');
-  ctx.fillStyle=cg;ctx.fill();ctx.strokeStyle='#8B7500';ctx.lineWidth=2;ctx.stroke();
- 
-  ctx.restore();
- 
-  if(showBall&&ballRadius!==undefined){
-    const bx=CX+Math.cos(ballAngle)*ballRadius,by=CY+Math.sin(ballAngle)*ballRadius;
-    ctx.beginPath();ctx.arc(bx,by,9,0,2*Math.PI);
-    const bg=ctx.createRadialGradient(bx-2,by-2,1,bx,by,9);
-    bg.addColorStop(0,'#fff');bg.addColorStop(.6,'#ddd');bg.addColorStop(1,'#999');
-    ctx.fillStyle=bg;ctx.fill();ctx.strokeStyle='#666';ctx.lineWidth=1.5;ctx.stroke();
+    const a=i*Math.PI/4;
+    const dr=(TRACK_R+W_R+0.12)/2;
+    const df=new THREE.Mesh(new THREE.OctahedronGeometry(0.2),goldMat);
+    df.position.set(Math.cos(a)*dr,TRACK_H*0.55,Math.sin(a)*dr);
+    df.scale.set(1,0.5,0.7);
+    df.rotation.y=-a;
+    scene3d.add(df);
   }
 }
- 
+
+function createBall3D(){
+  ballMesh3d=new THREE.Mesh(
+    new THREE.SphereGeometry(BALL_R,32,32),
+    new THREE.MeshStandardMaterial({color:0xeeeeee,metalness:0.7,roughness:0.15})
+  );
+  ballMesh3d.castShadow=true;
+  ballMesh3d.visible=false;
+  scene3d.add(ballMesh3d);
+}
+
+// ═══════════════════════════════════════
+//  RENDER LOOP
+// ═══════════════════════════════════════
+let lastFT=0;
+function render3DLoop(t){
+  requestAnimationFrame(render3DLoop);
+  const now=t||0;
+  const dt=Math.min((now-(lastFT||now))/1000,0.05);
+  lastFT=now;
+
+  if(physActive&&ballSt){
+    // Sub-step physics for stability
+    const steps=5;
+    let result=null;
+    for(let s=0;s<steps;s++){
+      result=stepPhysics(dt/steps);
+      if(result!==null)break;
+    }
+    // Safety timeout
+    if(physActive&&performance.now()-spinStart>15000){
+      const lt=((ballSt.theta-wheelAngle)%(2*Math.PI)+2*Math.PI)%(2*Math.PI);
+      physActive=false;ballSt.settled=true;
+      result=WHEEL_ORDER[Math.floor(lt/SEG_ARC)%N_SEG];
+    }
+    wheelGrp.rotation.y=wheelAngle;
+    if(ballSt){
+      ballMesh3d.position.set(
+        Math.cos(ballSt.theta)*ballSt.r,
+        ballSt.h,
+        Math.sin(ballSt.theta)*ballSt.r
+      );
+      ballMesh3d.visible=true;
+    }
+    if(result!==null){
+      physActive=false;
+      finishSpin(result);
+    }
+  }else{
+    // Idle: gentle wheel rotation
+    wheelAngle+=0.003*(dt*60);
+    wheelGrp.rotation.y=wheelAngle;
+    // Keep settled ball in pocket
+    if(ballSt&&ballSt.settled){
+      ballSt.theta=wheelAngle+ballSt._localA;
+      ballMesh3d.position.set(
+        Math.cos(ballSt.theta)*ballSt.r,
+        ballSt.h,
+        Math.sin(ballSt.theta)*ballSt.r
+      );
+    }
+  }
+  if(renderer3d)renderer3d.render(scene3d,camera3d);
+}
+
+// ═══════════════════════════════════════
+//  BALL PHYSICS
+// ═══════════════════════════════════════
+function stepPhysics(dt){
+  const b=ballSt;
+  if(!b||b.settled)return null;
+
+  // Wheel deceleration
+  wheelOmega*=(1-0.02*dt);
+  wheelAngle+=wheelOmega*dt;
+
+  if(b.onTrack){
+    // Ball on track: angular deceleration from friction
+    b.omega*=(1-0.5*dt);
+    b.theta+=b.omega*dt;
+
+    // Tick sound when passing a segment
+    const la=((b.theta-wheelAngle)%(2*Math.PI)+2*Math.PI)%(2*Math.PI);
+    const sn=Math.floor(la/SEG_ARC);
+    if(sn!==b._lseg){b._lseg=sn;sndTick();}
+
+    // Deflector collision (8 evenly spaced bumps on track)
+    for(let d=0;d<8;d++){
+      const da=d*Math.PI/4;
+      const angDist=((b.theta-da)%(2*Math.PI)+2*Math.PI)%(2*Math.PI);
+      if(Math.min(angDist,2*Math.PI-angDist)*TRACK_R<0.25){
+        // Bounce: lose some angular speed
+        b.omega*=0.92;
+      }
+    }
+
+    // Leave track when slow enough
+    if(Math.abs(b.omega)<3.5){
+      b.onTrack=false;
+      b.vr=-1.5-Math.random()*0.8;
+      b.vh=-0.8-Math.random()*0.5;
+      sndBallDrop();
+    }
+  }else{
+    // Free flight with gravity
+    b.vh-=9.8*dt;
+    b.h+=b.vh*dt;
+    b.r+=b.vr*dt;
+    b.theta+=b.omega*dt;
+
+    // Friction
+    b.omega*=(1-0.6*dt);
+    b.vr*=(1-0.4*dt);
+
+    // Floor collision
+    if(b.h<BALL_R){
+      b.h=BALL_R;
+      b.vh=Math.abs(b.vh)*0.3;
+      b.vr*=0.85;
+      // Friction couples ball angular velocity toward wheel
+      b.omega=b.omega*0.85+wheelOmega*0.15;
+      if(b.vh<0.12)b.vh=0;
+    }
+
+    // Outer pocket wall
+    if(b.r>W_R-BALL_R&&b.h<0.5){
+      b.r=W_R-BALL_R;
+      b.vr=-Math.abs(b.vr)*0.3;
+    }
+
+    // Track slope pushback
+    if(b.r>W_R+0.1){
+      b.vr=-Math.abs(b.vr)*0.4-0.4;
+      b.r=W_R+0.1;
+    }
+
+    // Inner wall (hub)
+    if(b.r<W_IR+BALL_R){
+      b.r=W_IR+BALL_R;
+      b.vr=Math.abs(b.vr)*0.3;
+    }
+
+    // Pocket divider collision
+    if(b.r>=W_IR+BALL_R&&b.r<=W_R-BALL_R&&b.h<DIV_H){
+      const lt=((b.theta-wheelAngle)%(2*Math.PI)+2*Math.PI)%(2*Math.PI);
+      const nd=Math.round(lt/SEG_ARC);
+      const divA=nd*SEG_ARC;
+      const angDist=lt-divA;
+      const linDist=Math.abs(angDist)*b.r;
+
+      if(linDist<BALL_R+0.018){
+        // Reflect angular velocity relative to wheel
+        const relOmega=b.omega-wheelOmega;
+        b.omega=-relOmega*0.3+wheelOmega;
+        // Push ball away from divider
+        b.theta+=(angDist>0?1:-1)*(BALL_R+0.025)/b.r;
+        sndTick();
+      }
+    }
+
+    // Check if ball has settled
+    const speed=Math.abs(b.omega-wheelOmega)*b.r+Math.abs(b.vr)+Math.abs(b.vh);
+    if(speed<0.15&&b.h<=BALL_R+0.02){
+      const lt=((b.theta-wheelAngle)%(2*Math.PI)+2*Math.PI)%(2*Math.PI);
+      const pi=Math.floor(lt/SEG_ARC)%N_SEG;
+      if(pi===lastPocket){
+        settleCount++;
+        if(settleCount>80){
+          b.settled=true;
+          b.omega=wheelOmega;
+          b._localA=lt;
+          return WHEEL_ORDER[pi];
+        }
+      }else{
+        lastPocket=pi;
+        settleCount=0;
+      }
+      // Gradually lock to wheel rotation
+      b.omega=b.omega*0.92+wheelOmega*0.08;
+    }
+  }
+  return null;
+}
+
 // ═══════════════════════════════════════
 //  SPIN
 // ═══════════════════════════════════════
-let lastTickSeg=-1;
- 
 function spin(){
   if(spinning)return;
   const anyBets=players.some(p=>Object.keys(p.bets).length>0);
   if(!anyBets){toast('Place at least one bet!');return}
- 
-  // Check table minimum
   if(tableMin>0){
     const belowMin=players.filter(p=>{
       const tb=Object.values(p.bets).reduce((s,v)=>s+v,0);
       return tb>0&&tb<tableMin;
     });
-    if(belowMin.length>0){
-      toast(`${belowMin.map(p=>p.name).join(', ')}: minimum bet is $${tableMin}`);return;
-    }
+    if(belowMin.length>0){toast(`${belowMin.map(p=>p.name).join(', ')}: minimum bet is $${tableMin}`);return;}
   }
- 
-  // Reminder for players without bets
   const noBets=players.filter(p=>Object.keys(p.bets).length===0&&p.balance>0);
-  if(noBets.length>0){
-    toast(`Reminder: ${noBets.map(p=>p.name).join(', ')} have no bets`);
-  }
- 
+  if(noBets.length>0)toast(`Reminder: ${noBets.map(p=>p.name).join(', ')} have no bets`);
+
   spinning=true;
   document.getElementById('spinBtn').disabled=true;
   document.getElementById('resultNumber').classList.remove('revealed');
@@ -799,91 +1036,28 @@ function spin(){
   undoStack=[];
   players.forEach(p=>p.lastResult=null);
   renderPlayers();
- 
-  // Remove any previous win highlight
   document.querySelectorAll('.win-highlight').forEach(el=>el.classList.remove('win-highlight'));
- 
-  const resultIdx=Math.floor(Math.random()*WHEEL_ORDER.length);
-  const resultNumber=WHEEL_ORDER[resultIdx];
-  const count=WHEEL_ORDER.length,arc=2*Math.PI/count;
- 
-  const segCenter=resultIdx*arc+arc/2;
-  const targetAngle=-segCenter-Math.PI/2;
-  const wheelSpins=5+Math.random()*3;
-  const wheelTotal=wheelSpins*2*Math.PI+((targetAngle%(2*Math.PI))+2*Math.PI)%(2*Math.PI);
- 
-  const TRACK_R=WR+14,POCKET_R=WR-34;
-  const ballStartAngle=Math.random()*2*Math.PI;
-  const ballRevs=8+Math.random()*4;
-  // Winning segment center in wheel's local coordinate frame
-  const winSegLocal=resultIdx*arc+arc/2;
- 
-  // Precompute the ball's track-end angle (end of outer-track phase)
-  const trackEndAngle=ballStartAngle-ballRevs*2*Math.PI;
- 
-  const duration=4500+Math.random()*1500;
-  const startTime=performance.now();
-  lastTickSeg=-1;
-  let ballDropSoundPlayed=false;
- 
-  function animate(now){
-    const elapsed=now-startTime;
-    const t=Math.min(elapsed/duration,1);
-    const wheelEase=1-Math.pow(1-t,3);
-    const wheelRot=wheelTotal*wheelEase;
- 
-    // Ball position: 3 phases
-    let ballAng,ballR;
- 
-    if(t<.55){
-      // Phase 1: ball spinning on outer track (opposite direction)
-      const bt=t/.55;
-      const be=1-Math.pow(1-bt,3);
-      ballAng=ballStartAngle-ballRevs*2*Math.PI*be;
-      ballR=TRACK_R;
-    }else if(t<.80){
-      // Phase 2: spiraling inward, converging to winning pocket
-      const bt=(t-.55)/.25;
-      const be=1-Math.pow(1-bt,2);
-      // Target: winning segment's global position (moves with wheel)
-      const targetAng=winSegLocal+wheelRot;
-      // Smooth transition from track end to target
-      let diff=targetAng-trackEndAngle;
-      // Normalize diff so ball takes shortest path + at most one extra loop
-      diff=((diff%(2*Math.PI))+2*Math.PI)%(2*Math.PI);
-      if(diff>Math.PI)diff-=2*Math.PI;
-      ballAng=trackEndAngle+diff*be;
-      ballR=TRACK_R+(POCKET_R-TRACK_R)*be;
-    }else{
-      // Phase 3: locked in pocket, rotating with wheel
-      ballAng=winSegLocal+wheelRot;
-      ballR=POCKET_R;
-      // Settle bounce
-      const bt=(t-.80)/.20;
-      ballR+=Math.sin(bt*Math.PI*3)*Math.exp(-bt*4)*5;
-    }
- 
-    // Tick sound when segment changes at pointer
-    const topAngle=((-Math.PI/2-wheelRot)%(2*Math.PI)+2*Math.PI)%(2*Math.PI);
-    const segIdx=Math.floor(topAngle/arc)%count;
-    if(segIdx!==lastTickSeg){lastTickSeg=segIdx;sndTick()}
- 
-    // Ball drop sound
-    if(t>=.55&&!ballDropSoundPlayed){ballDropSoundPlayed=true;sndBallDrop()}
- 
-    drawWheel(wheelRot,ballAng,ballR,true);
- 
-    if(t<1)requestAnimationFrame(animate);
-    else{
-      // Final frame: ball locked exactly in winning pocket
-      const finalBallAng=winSegLocal+wheelTotal;
-      drawWheel(wheelTotal,finalBallAng,POCKET_R,true);
-      finishSpin(resultNumber);
-    }
-  }
-  requestAnimationFrame(animate);
+
+  // Launch ball with physics
+  wheelOmega=1.5+Math.random()*1.5;
+  ballSt={
+    theta:Math.random()*Math.PI*2,
+    r:TRACK_R,
+    h:TRACK_H+BALL_R,
+    omega:-(12+Math.random()*8),
+    vr:0,vh:0,
+    onTrack:true,settled:false,
+    _lseg:-1,_localA:0
+  };
+  settleCount=0;lastPocket=-1;
+  spinStart=performance.now();
+  physActive=true;
+  ballMesh3d.visible=true;
 }
- 
+
+// ═══════════════════════════════════════
+//  FINISH SPIN (payout)
+// ═══════════════════════════════════════
 function finishSpin(resultNumber){
   const color=numColor(resultNumber);
   const rn=document.getElementById('resultNumber');
@@ -895,16 +1069,15 @@ function finishSpin(resultNumber){
   rn.classList.add('revealed');
   rl.textContent=`${resultNumber} ${color.toUpperCase()}${resultNumber!==0?(resultNumber%2===0?' EVEN':' ODD'):''}`;
   rl.classList.add('revealed');
- 
+
   history.unshift(resultNumber);if(history.length>30)history.pop();
   renderHistory();
- 
-  // Highlight winning number on table
+
   const winCell=document.querySelector(`[data-bet="n${resultNumber}"]`);
   if(winCell)winCell.classList.add('win-highlight');
- 
+
   let anyoneWon=false, biggestWin=0;
- 
+
   players.forEach(p=>{
     const totalBet=Object.values(p.bets).reduce((s,v)=>s+v,0);
     let totalWin=0;
@@ -912,14 +1085,9 @@ function finishSpin(resultNumber){
       const payout=calcPayout(key,resultNumber);
       if(payout>0)totalWin+=amt*payout+amt;
     }
- 
-    // Save prev bets for re-bet
     p.prevBets={...p.bets};
- 
     const netWin=totalWin-totalBet;
     p.balance=p.balance-totalBet+totalWin;
- 
-    // Stats
     if(totalBet>0){
       p.stats.totalWagered+=totalBet;
       p.stats.roundsPlayed++;
@@ -929,7 +1097,6 @@ function finishSpin(resultNumber){
         if(netWin>p.stats.biggestWin)p.stats.biggestWin=netWin;
       }
     }
- 
     if(netWin>0){
       p.lastResult={won:netWin,lost:0};
       anyoneWon=true;
@@ -941,8 +1108,7 @@ function finishSpin(resultNumber){
     }
     p.bets={};
   });
- 
-  // Sound & confetti
+
   if(anyoneWon){
     if(biggestWin>=500){sndBigWin();launchConfetti()}
     else sndWin();
@@ -950,18 +1116,17 @@ function finishSpin(resultNumber){
     const anyBet=players.some(p=>p.lastResult&&p.lastResult.lost>0);
     if(anyBet)sndLose();
   }
- 
+
   renderPlayers();updateAllChipStacks();
   spinning=false;
   document.getElementById('spinBtn').disabled=false;
 }
- 
+
 // ═══════════════════════════════════════
 //  PAYOUT CALCULATOR
 // ═══════════════════════════════════════
 function calcPayout(betKey,result){
   if(betKey.startsWith('n'))return result===parseInt(betKey.slice(1))?35:0;
- 
   if(betKey.startsWith('sp_')){
     const nums=betKey.slice(3).split('_').map(Number);
     return nums.includes(result)?17:0;
@@ -981,7 +1146,6 @@ function calcPayout(betKey,result){
     return result>=lo&&result<=hi?5:0;
   }
   if(betKey==='basket')return[0,1,2,3].includes(result)?8:0;
- 
   if(result===0)return 0;
   switch(betKey){
     case'red':return RED_NUMBERS.has(result)?1:0;
@@ -999,7 +1163,7 @@ function calcPayout(betKey,result){
     default:return 0;
   }
 }
- 
+
 // ═══════════════════════════════════════
 //  HISTORY
 // ═══════════════════════════════════════
@@ -1008,7 +1172,7 @@ function renderHistory(){
     `<div class="history-num ${numColor(n)==='green'?'hgreen':numColor(n)==='red'?'hred':'hblack'}">${n}</div>`
   ).join('');
 }
- 
+
 // ═══════════════════════════════════════
 //  UTIL
 // ═══════════════════════════════════════
@@ -1017,9 +1181,6 @@ function toast(msg){
   const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');
   clearTimeout(t._timer);t._timer=setTimeout(()=>t.classList.remove('show'),3000);
 }
- 
-if(ctx)drawWheel(0);
 </script>
 </body>
-
 </html>
